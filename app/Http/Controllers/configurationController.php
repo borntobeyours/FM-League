@@ -21,7 +21,6 @@ class configurationController extends Controller
         return view('configuration.league', ['data' => $latestConfig]);
     }
 
-
     public function saveLeagueAndCup()
     {
         $latestConfig = ConfigLeague::orderBy('id', 'DESC')->first();
