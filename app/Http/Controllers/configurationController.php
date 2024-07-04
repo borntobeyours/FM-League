@@ -18,8 +18,12 @@ class configurationController extends Controller
     public function leagueAndCup()
     {
         $latestConfig = ConfigLeague::latest('id')->first();
+        $divisions = ConfigDivision::where('status', 1)->get();
 
-        return view('configuration.league', ['data' => $latestConfig]);
+        return view('configuration.league', [
+            'data' => $latestConfig,
+            'divisions' => $divisions
+        ]);
     }
 
     public function saveLeagueAndCup()

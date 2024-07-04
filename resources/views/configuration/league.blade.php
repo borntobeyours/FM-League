@@ -54,7 +54,14 @@
                             <div class="row">
                                 <div class="mb-3 col-md-12">
                                     <label class="form-label">League Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter League Name" name="league_name" value="{{ $data->league_name ?? null }}" required/>
+                                    <select class="form-select" name="league_name" required>
+                                        <option value="">Select a Division</option>
+                                        @foreach ($divisions as $division)
+                                            <option value="{{ $division->id }}" {{ (isset($data->league_name) && $data->league_name == $division->id) ? 'selected' : '' }}>
+                                                {{ $division->division_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <hr>
