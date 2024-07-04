@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\configurationController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\leagueController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,10 @@ Route::middleware('auth')->prefix('configuration')->group(function () {
     Route::post('/teams', [configurationController::class, 'saveTeams']);
     Route::put('/teams/{id}', [configurationController::class, 'modifyTeams'])->name('config.teams.modify');
     Route::delete('/teams/{id}', [configurationController::class, 'deleteTeams'])->name('config.teams.delete');
+});
+
+Route::middleware('auth')->prefix('league')->group(function () {
+    Route::get('/{division_id}/standings', [leagueController::class, 'standings'])->name('league.standing');
 });
 
 Route::middleware('auth')->group(function () {

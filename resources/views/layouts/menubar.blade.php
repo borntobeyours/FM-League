@@ -71,7 +71,7 @@
                 <span class="pc-mtext">{{ $division->division_name }}</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span>
             </a>
             <ul class="pc-submenu">
-                <li class="pc-item"><a class="pc-link" href="#">Classement</a></li>
+                <li class="pc-item"><a class="pc-link" href="{{ route('league.standing', $division->id) }}">Standings</a></li>
                 <li class="pc-item"><a class="pc-link" href="#">Statistics</a></li>
                 <li class="pc-item"><a class="pc-link" href="#">Match Result</a></li>
             </ul>
