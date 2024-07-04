@@ -7,16 +7,16 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="p-4">
-                                    <h2 class="text-white">Explore Redesigned Able Pro</h2>
+                                    <h2 class="text-white">Welcome to FM League Managemet</h2>
                                     <p class="text-white">
-                                        The Brand new User Interface with power of Bootstrap Components. Explore the Endless possibilities with Able Pro.
+                                        Explore and manage your league efficiently with our comprehensive tools. Get in-depth statistics, track team performance, and stay updated with the latest standings. Enhance your league management experience now.
                                     </p>
-                                    <a href="https://1.envato.market/zNkqj6" class="btn btn-outline-light">Exclusive on Themeforest</a>
+                                    <a href="{{ route('start' )}}" class="btn btn-outline-light">Start Now</a>
                                 </div>
                             </div>
                             <div class="text-center col-sm-6">
                                 <div class="img-welcome-banner">
-                                    <img src="../assets/images/widget/welcome-banner.png" alt="img" class="img-fluid" />
+                                    <img src="{{ asset('/assets/images/widget/tactics.png') }}" alt="img" class="img-fluid" />
                                 </div>
                             </div>
                         </div>

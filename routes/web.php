@@ -11,6 +11,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [dashboardController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
+Route::get('/start', [dashboardController::class, 'start'])->middleware(['auth'])->name('start');
 
 Route::middleware('auth')->prefix('configuration')->group(function () {
     Route::get('/league-and-cup', [configurationController::class, 'leagueAndCup'])->name('config.league');
