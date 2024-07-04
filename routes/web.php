@@ -14,6 +14,11 @@ Route::get('/dashboard', [dashboardController::class, 'dashboard'])->middleware(
 Route::middleware('auth')->prefix('configuration')->group(function () {
     Route::get('/league-and-cup', [configurationController::class, 'leagueAndCup'])->name('config.league');
     Route::post('/league-and-cup', [configurationController::class, 'saveLeagueAndCup']);
+    Route::get('/division', [configurationController::class, 'division'])->name('config.division');
+    Route::post('/division', [configurationController::class, 'saveDivision']);
+    Route::put('/division/{id}', [configurationController::class, 'modifyDivision'])->name('config.division.modify');
+    Route::delete('/division/{id}', [configurationController::class, 'deleteDivision'])->name('config.division.delete');
+    Route::get('/teams', [configurationController::class, 'teams'])->name('config.teams');
 });
 
 Route::middleware('auth')->group(function () {

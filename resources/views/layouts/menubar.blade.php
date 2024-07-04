@@ -154,7 +154,8 @@
         </a>
         <ul class="pc-submenu">
             <li class="pc-item"><a class="pc-link" href="{{ route('config.league') }}">League & Cup</a></li>
-            <li class="pc-item"><a class="pc-link" href="#">Teams Database</a></li>
+            <li class="pc-item"><a class="pc-link" href="{{ route('config.division') }}">League Division</a></li>
+            <li class="pc-item"><a class="pc-link" href="{{ route('config.teams') }}">Teams Database</a></li>
         </ul>
     </li>
 </ul>

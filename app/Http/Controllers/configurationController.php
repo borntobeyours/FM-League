@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConfigDivision;
 use App\Models\ConfigLeague;
 use Illuminate\Http\Request;
 
@@ -44,6 +45,52 @@ class configurationController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function division()
+    {
+        $data = ConfigDivision::where('status',1)->get();
+        return view('configuration.division', compact(['data']));
+    }
+
+    public function saveDivision()
+    {
+        $existingDivision = ConfigDivision::where('division_name', $this->request->division_name)
+            ->where('status', 1)
+            ->first();
+
+        if (!$existingDivision) {
+            ConfigDivision::create([
+                'division_name' => $this->request->division_name
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function modifyDivision($id)
+    {
+        $division = ConfigDivision::findOrFail($id);
+        $division->update([
+            'division_name' => $this->request->division_name
+        ]);
+
+        return redirect()->back()->with('success', 'Division updated successfully!');
+    }
+
+    public function deleteDivision($id)
+    {
+        $division = ConfigDivision::findOrFail($id);
+        $division->update([
+            'status' => 0
+        ]);
+
+        return redirect()->back()->with('success', 'Division deleted successfully!');
+    }
+
+    public function teams()
+    {
+        return view('configuration.teams');
     }
 
 

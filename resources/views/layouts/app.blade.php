@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('/assets/fonts/material.css') }}" />
     <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('/assets/css/style-preset.css') }}" />
+    @yield('css')
 </head>
 
 <body data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr" data-pc-theme_contrast="" data-pc-theme="light">
@@ -65,8 +66,6 @@
         </div>
     </footer>
 
-    <script src="{{ asset('/assets/js/plugins/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/pages/dashboard-default.js') }}"></script>
     <script src="{{ asset('/assets/js/plugins/popper.min.js') }}"></script>
     <script src="{{ asset('/assets/js/plugins/simplebar.min.js') }}"></script>
     <script src="{{ asset('/assets/js/plugins/bootstrap.min.js') }}"></script>
@@ -98,7 +97,7 @@
         main_layout_change('vertical');
     </script>
 
-
+    @stack('scripts')
 </body>
 
 </html>
