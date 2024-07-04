@@ -6,6 +6,7 @@ use App\Models\ConfigDivision;
 use App\Models\ConfigLeague;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class configurationController extends Controller
 {
@@ -13,6 +14,8 @@ class configurationController extends Controller
 
     public function __construct(Request $request)
     {
+        $activeDivisions = ConfigDivision::where('status', 1)->orderBy('division_name', 'asc')->get();
+        View::share('activeDivisions', $activeDivisions);
         $this->request = $request;
     }
 

@@ -60,36 +60,23 @@
     <li class="pc-item pc-caption">
         <label>League</label>
     </li>
-    <li class="pc-item">
-        <a href="#" class="pc-link">
-            <span class="pc-micon">
-                <svg class="pc-icon">
-                    <use xlink:href="#custom-layer"></use>
-                </svg>
-            </span>
-            <span class="pc-mtext">Classement</span>
-        </a>
-    </li>
-    <li class="pc-item">
-        <a href="#" class="pc-link">
-            <span class="pc-micon">
-                <svg class="pc-icon">
-                    <use xlink:href="#custom-presentation-chart"></use>
-                </svg>
-            </span>
-            <span class="pc-mtext">Statistics</span>
-        </a>
-    </li>
-    <li class="pc-item">
-        <a href="#" class="pc-link">
-            <span class="pc-micon">
-                <svg class="pc-icon">
-                    <use xlink:href="#custom-video-play"></use>
-                </svg>
-            </span>
-            <span class="pc-mtext">Match Result</span>
-        </a>
-    </li>
+    @foreach($activeDivisions as $division)
+        <li class="pc-item pc-hasmenu">
+            <a href="#!" class="pc-link">
+                <span class="pc-micon">
+                    <svg class="pc-icon">
+                        <use xlink:href="#custom-shield"></use>
+                    </svg>
+                </span>
+                <span class="pc-mtext">{{ $division->division_name }}</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+            </a>
+            <ul class="pc-submenu">
+                <li class="pc-item"><a class="pc-link" href="#">Classement</a></li>
+                <li class="pc-item"><a class="pc-link" href="#">Statistics</a></li>
+                <li class="pc-item"><a class="pc-link" href="#">Match Result</a></li>
+            </ul>
+        </li>
+    @endforeach
 
     <li class="pc-item pc-caption">
         <label>Cup</label>
