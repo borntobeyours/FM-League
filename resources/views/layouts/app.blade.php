@@ -29,7 +29,7 @@
             <div class="m-header">
                 <a href="{{ route('dashboard') }}" class="b-brand text-primary">
                     <img src="{{ asset('/assets/images/logo.png') }}" class="img-fluid logo-lg" alt="logo" />
-                    <span class="badge bg-light-success rounded-pill ms-1 theme-version">v{{ env('APP_VERSION') }}</span>
+                    <span class="badge bg-light-success rounded-pill ms-1 theme-version">v1.0</span>
                 </a>
             </div>
             <div class="navbar-content">
@@ -57,7 +57,7 @@
                 <div class="col-auto my-1">
                     <ul class="mb-0 list-inline footer-link">
                         <li class="list-inline-item">
-                            v{{ env('APP_VERSION') }}
+                            v1.0
                         </li>
                     </ul>
                 </div>
