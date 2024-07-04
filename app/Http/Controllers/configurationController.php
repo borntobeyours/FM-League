@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ConfigDivision;
 use App\Models\ConfigLeague;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class configurationController extends Controller
@@ -94,7 +95,71 @@ class configurationController extends Controller
 
     public function teams()
     {
-        return view('configuration.teams');
+        $teams = Team::where('status', 1)
+            ->orderBy('division_id', 'asc')
+            ->orderBy('team_name', 'asc')
+            ->get();
+
+        $divisions = ConfigDivision::where('status', 1)->get();
+
+        return view('configuration.teams', [
+            'teams' => $teams,
+            'divisions' => $divisions
+        ]);
+    }
+
+    public function saveTeams()
+    {
+        $existingTeam = Team::where('team_name', $this->request->team_name)
+            ->where('status', 1)
+            ->first();
+
+        $currentPlayingTeam = Team::where('is_playing', 1)->first();
+        if ($currentPlayingTeam) {
+            $currentPlayingTeam->is_playing = 0;
+            $currentPlayingTeam->save();
+        }
+
+        if (!$existingTeam) {
+            Team::create([
+                'division_id' => $this->request->division_id,
+                'team_name' => $this->request->team_name,
+                'is_playing' => $this->request->is_playing ?? 0,
+                'status' => 1
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Team saved successfully!');
+    }
+
+    public function modifyTeams($id)
+    {
+        $teams = Team::findOrFail($id);
+
+        if ($this->request->is_playing == 1) {
+            $currentPlayingTeam = Team::where('is_playing', 1)->first();
+            $currentPlayingTeam->is_playing = 0;
+            $currentPlayingTeam->save();
+        }
+
+        $teams->update([
+            'division_id' => $this->request->division_id,
+            'team_name' => $this->request->team_name,
+            'is_playing' => $this->request->is_playing ?? 0,
+            'status' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'Team updated successfully!');
+    }
+
+    public function deleteTeams($id)
+    {
+        $teams = Team::findOrFail($id);
+        $teams->update([
+            'status' => 0
+        ]);
+
+        return redirect()->back()->with('success', 'Team deleted successfully!');
     }
 
 

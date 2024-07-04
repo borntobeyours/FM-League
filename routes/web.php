@@ -19,6 +19,9 @@ Route::middleware('auth')->prefix('configuration')->group(function () {
     Route::put('/division/{id}', [configurationController::class, 'modifyDivision'])->name('config.division.modify');
     Route::delete('/division/{id}', [configurationController::class, 'deleteDivision'])->name('config.division.delete');
     Route::get('/teams', [configurationController::class, 'teams'])->name('config.teams');
+    Route::post('/teams', [configurationController::class, 'saveTeams']);
+    Route::put('/teams/{id}', [configurationController::class, 'modifyTeams'])->name('config.teams.modify');
+    Route::delete('/teams/{id}', [configurationController::class, 'deleteTeams'])->name('config.teams.delete');
 });
 
 Route::middleware('auth')->group(function () {
