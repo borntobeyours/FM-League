@@ -155,7 +155,17 @@
         <ul class="pc-submenu">
             <li class="pc-item"><a class="pc-link" href="{{ route('config.league') }}">League & Cup</a></li>
             <li class="pc-item"><a class="pc-link" href="{{ route('config.division') }}">League Division</a></li>
-            <li class="pc-item"><a class="pc-link" href="{{ route('config.teams') }}">Teams Database</a></li>
         </ul>
+    </li>
+
+    <li class="pc-item">
+        <a href="{{ route('config.teams') }}" class="pc-link">
+            <span class="pc-micon">
+                <svg class="pc-icon">
+                    <use xlink:href="#custom-folder-open"></use>
+                </svg>
+            </span>
+            <span class="pc-mtext">Teams Database</span>
+        </a>
     </li>
 </ul>
