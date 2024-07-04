@@ -29,7 +29,7 @@
         <div class="navbar-wrapper">
             <div class="m-header">
                 <a href="{{ route('dashboard') }}" class="b-brand text-primary">
-                    <img src="{{ asset('/assets/images/logo.png') }}" class="img-fluid logo-lg" alt="logo" />
+                    <img src="{{ asset('assets/images/logo.png') }}" class="img-fluid logo-lg" alt="logo" />
                     <span class="badge bg-light-success rounded-pill ms-1 theme-version">v1.0</span>
                 </a>
             </div>

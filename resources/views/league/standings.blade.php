@@ -33,35 +33,36 @@
                         <div class="table-responsive">
                           <table class="table table-styling">
                             <thead>
-                              <tr>
-                                <th>Rank</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                              </tr>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team</th>
+                                    <th>MP</th>
+                                    <th>W</th>
+                                    <th>D</th>
+                                    <th>L</th>
+                                    <th>GF</th>
+                                    <th>GA</th>
+                                    <th>GD</th>
+                                    <th>Pts</th>
+                                </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr>
-                              <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                              </tr>
+                                @foreach ($teams as $key=>$item)
+                                    <tr class="table-success">
+                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $item->team_name}}</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
-                            <tfoot class="table-info">
-                              <tr>
-                                <td>#</td>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                              </tr>
-                            </tfoot>
+
                           </table>
                         </div>
                     </div>
