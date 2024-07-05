@@ -72,7 +72,17 @@
             </a>
             <ul class="pc-submenu">
                 <li class="pc-item"><a class="pc-link" href="{{ route('league.standing', $division->id) }}">Standings</a></li>
-                <li class="pc-item"><a class="pc-link" href="#">Statistics</a></li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        Statistics<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="#!">Goal Score</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#!">Assist</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#!">Yellow Card</a></li>
+                        <li class="pc-item"><a class="pc-link" href="#!">Red Card</a></li>
+                    </ul>
+                </li>
                 <li class="pc-item"><a class="pc-link" href="{{ route('league.results', $division->id)}}">Match Result</a></li>
             </ul>
         </li>
@@ -153,6 +163,17 @@
                 </svg>
             </span>
             <span class="pc-mtext">Teams Database</span>
+        </a>
+    </li>
+
+    <li class="pc-item">
+        <a href="{{ route('db.player') }}" class="pc-link">
+            <span class="pc-micon">
+                <svg class="pc-icon">
+                    <use xlink:href="#custom-folder-open"></use>
+                </svg>
+            </span>
+            <span class="pc-mtext">Player Database</span>
         </a>
     </li>
 </ul>
