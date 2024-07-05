@@ -30,6 +30,7 @@ Route::middleware('auth')->prefix('configuration')->group(function () {
 Route::middleware('auth')->prefix('database')->group(function () {
     Route::get('/player', [DBPlayerController::class, 'player'])->name('db.player');
     Route::post('/player', [DBPlayerController::class, 'importPlayer']);
+    Route::get('/players/{teamId}', [DBPlayerController::class, 'getPlayersByTeam']);
 });
 
 Route::middleware('auth')->prefix('league')->group(function () {

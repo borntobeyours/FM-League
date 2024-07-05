@@ -55,7 +55,6 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-
                           </table>
                         </div>
                     </div>
@@ -66,7 +65,7 @@
 
     <!-- Add Result Modal -->
     <div id="addResultModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addResultLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <form action="#" method="POST">
                     @csrf
@@ -84,7 +83,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Home Team</label>
-                                <select class="form-select" name="home_team" required>
+                                <select class="form-select" name="home_team" id="home_team" required>
                                     <option value="">Select Home Team</option>
                                     @foreach ($league as $team)
                                         <option value="{{ $team->id }}">
@@ -95,7 +94,7 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Away Team</label>
-                                <select class="form-select" name="away_team" required>
+                                <select class="form-select" name="away_team" id="away_team" required>
                                     <option value="">Select Away Team</option>
                                     @foreach ($league as $team)
                                         <option value="{{ $team->id }}">
@@ -118,41 +117,41 @@
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Goal Score Home</label>
-                                <textarea class="form-control" id="exampleTextarea" name="goal_home" rows="3"></textarea>
+                                <div id="goal_home_container"></div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Goal Score Away</label>
-                                <textarea class="form-control" id="exampleTextarea" name="goal_away" rows="3"></textarea>
+                                <div id="goal_away_container"></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Assist Home</label>
-                                <textarea class="form-control" id="exampleTextarea" name="assist_home" rows="3"></textarea>
+                                <div id="assist_home_container"></div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Assist Away</label>
-                                <textarea class="form-control" id="exampleTextarea" name="assist_away" rows="3"></textarea>
+                                <div id="assist_away_container"></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Yellow Card Home</label>
-                                <textarea class="form-control" id="exampleTextarea" name="yellow_card_home" rows="3"></textarea>
+                                <div id="yellow_card_home_container"></div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Yellow Card Away</label>
-                                <textarea class="form-control" id="exampleTextarea" name="yellow_card_away" rows="3"></textarea>
+                                <div id="yellow_card_away_container"></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Red Card Home</label>
-                                <textarea class="form-control" id="exampleTextarea" name="red_card_home" rows="3"></textarea>
+                                <div id="red_card_home_container"></div>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Red Card Away</label>
-                                <textarea class="form-control" id="exampleTextarea" name="red_card_away" rows="3"></textarea>
+                                <div id="red_card_away_container"></div>
                             </div>
                         </div>
                     </div>
@@ -169,5 +168,57 @@
     @endsection
 
     @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Handle home team change
+                document.getElementById('home_team').addEventListener('change', function () {
+                    let teamId = this.value;
+                    updatePlayerDropdowns('goal_home_container', teamId, 'goal_home');
+                    updatePlayerDropdowns('assist_home_container', teamId, 'assist_home');
+                    updatePlayerDropdowns('yellow_card_home_container', teamId, 'yellow_card_home');
+                    updatePlayerDropdowns('red_card_home_container', teamId, 'red_card_home');
+                });
+
+                // Handle away team change
+                document.getElementById('away_team').addEventListener('change', function () {
+                    let teamId = this.value;
+                    updatePlayerDropdowns('goal_away_container', teamId, 'goal_away');
+                    updatePlayerDropdowns('assist_away_container', teamId, 'assist_away');
+                    updatePlayerDropdowns('yellow_card_away_container', teamId, 'yellow_card_away');
+                    updatePlayerDropdowns('red_card_away_container', teamId, 'red_card_away');
+                });
+
+                function updatePlayerDropdowns(containerId, teamId, inputName) {
+                    let container = document.getElementById(containerId);
+                    container.innerHTML = '';
+
+                    if (teamId) {
+                        fetch(`/database/players/${teamId}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                data.forEach(player => {
+                                    let div = document.createElement('div');
+                                    div.classList.add('mb-3', 'd-flex', 'align-items-center');
+
+                                    let label = document.createElement('label');
+                                    label.classList.add('form-label', 'me-2');
+                                    label.textContent = player.name;
+
+                                    let input = document.createElement('input');
+                                    input.type = 'number';
+                                    input.classList.add('form-control', 'me-2');
+                                    input.name = `${inputName}[${player.id}]`;
+                                    input.placeholder = '0';
+                                    input.min = '0';
+
+                                    div.appendChild(label);
+                                    div.appendChild(input);
+                                    container.appendChild(div);
+                                });
+                            });
+                    }
+                }
+            });
+        </script>
     @endpush
 </x-app-layout>

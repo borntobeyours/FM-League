@@ -38,4 +38,10 @@ class DBPlayerController extends Controller
 
         return redirect()->back()->with('success', 'Players imported successfully!');
     }
+
+    public function getPlayersByTeam($teamId)
+    {
+        $players = Player::where('team_id', $teamId)->get();
+        return response()->json($players);
+    }
 }

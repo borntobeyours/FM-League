@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\ConfigDivision;
@@ -11,6 +12,7 @@ use App\Models\LeagueMatch;
 use App\Models\LeagueRed;
 use App\Models\LeagueYellow;
 use App\Models\Team;
+use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -57,10 +59,13 @@ class leagueController extends Controller
         $league = League::with('team')->where('division_id', $division_id)->where('league_id', $activeLeague->id)->get();
         $results = LeagueMatch::where('start_id', $start->id)->where('division_id', $division_id)->orderBy('match_date', 'DESC')->get();
 
+        $players = Player::all();
+
         return view('league.results', [
             'division' => $division,
             'league' => $league,
             'results' => $results,
+            'players' => $players,
         ]);
     }
 
@@ -123,67 +128,71 @@ class leagueController extends Controller
         $this->saveRed($matchId, $divisionId, $request->red_card_away, $request->away_team);
     }
 
-    protected function saveGoals($matchId, $divisionId, $goals, $leagueId)
+    protected function saveGoals($matchId, $divisionId, $goals, $teamId)
     {
-        $league = League::find($leagueId);
-        $goalScorers = array_filter(array_map('trim', explode("\n", $goals)));
-
-        foreach ($goalScorers as $scorer) {
-            LeagueGoals::create([
-                'start_id' => $league->start_id,
-                'match_id' => $matchId,
-                'division_id' => $divisionId,
-                'team_id' => $league->team_id,
-                'player_name' => $scorer,
-            ]);
+        $start = ConfigStart::where('status',1)->orderBy('id','DESC')->first();
+        $team = Team::find($teamId);
+        foreach ($goals as $playerId => $count) {
+            for ($i = 0; $i < $count; $i++) {
+                LeagueGoals::create([
+                    'start_id' => $start->id,
+                    'match_id' => $matchId,
+                    'division_id' => $divisionId,
+                    'team_id' => $team->id,
+                    'player_id' => $playerId,
+                ]);
+            }
         }
     }
 
-    protected function saveAssist($matchId, $divisionId, $assists, $leagueId)
+    protected function saveAssist($matchId, $divisionId, $assists, $teamId)
     {
-        $league = League::find($leagueId);
-        $assistPlayers = array_filter(array_map('trim', explode("\n", $assists)));
-
-        foreach ($assistPlayers as $assist) {
-            LeagueAssist::create([
-                'start_id' => $league->start_id,
-                'match_id' => $matchId,
-                'division_id' => $divisionId,
-                'team_id' => $league->team_id,
-                'player_name' => $assist,
-            ]);
+        $start = ConfigStart::where('status',1)->orderBy('id','DESC')->first();
+        $team = Team::find($teamId);
+        foreach ($assists as $playerId => $count) {
+            for ($i = 0; $i < $count; $i++) {
+                LeagueAssist::create([
+                    'start_id' => $start->id,
+                    'match_id' => $matchId,
+                    'division_id' => $divisionId,
+                    'team_id' => $team->id,
+                    'player_id' => $playerId,
+                ]);
+            }
         }
     }
 
-    protected function saveYellow($matchId, $divisionId, $yellows, $leagueId)
+    protected function saveYellow($matchId, $divisionId, $yellows, $teamId)
     {
-        $league = League::find($leagueId);
-        $yellowCards = array_filter(array_map('trim', explode("\n", $yellows)));
-
-        foreach ($yellowCards as $yellow) {
-            LeagueYellow::create([
-                'start_id' => $league->start_id,
-                'match_id' => $matchId,
-                'division_id' => $divisionId,
-                'team_id' => $league->team_id,
-                'player_name' => $yellow,
-            ]);
+        $start = ConfigStart::where('status',1)->orderBy('id','DESC')->first();
+        $team = Team::find($teamId);
+        foreach ($yellows as $playerId => $count) {
+            for ($i = 0; $i < $count; $i++) {
+                LeagueYellow::create([
+                    'start_id' => $start->id,
+                    'match_id' => $matchId,
+                    'division_id' => $divisionId,
+                    'team_id' => $team->id,
+                    'player_id' => $playerId,
+                ]);
+            }
         }
     }
 
-    protected function saveRed($matchId, $divisionId, $reds, $leagueId)
+    protected function saveRed($matchId, $divisionId, $reds, $teamId)
     {
-        $league = League::find($leagueId);
-        $redCards = array_filter(array_map('trim', explode("\n", $reds)));
-
-        foreach ($redCards as $red) {
-            LeagueRed::create([
-                'start_id' => $league->start_id,
-                'match_id' => $matchId,
-                'division_id' => $divisionId,
-                'team_id' => $league->team_id,
-                'player_name' => $red,
-            ]);
+        $start = ConfigStart::where('status',1)->orderBy('id','DESC')->first();
+        $team = Team::find($teamId);
+        foreach ($reds as $playerId => $count) {
+            for ($i = 0; $i < $count; $i++) {
+                LeagueRed::create([
+                    'start_id' => $start->id,
+                    'match_id' => $matchId,
+                    'division_id' => $divisionId,
+                    'team_id' => $team->id,
+                    'player_id' => $playerId,
+                ]);
+            }
         }
     }
 }
