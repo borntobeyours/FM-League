@@ -47,18 +47,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($standings as $key=>$item)
-                                    <tr class="table-success">
-                                        <td>{{ $key+1 }}</td>
-                                        <td>{{ $item->team->team_name}}</td>
-                                        <td>{{ $item->mp}}</td>
-                                        <td>{{ $item->w}}</td>
-                                        <td>{{ $item->d}}</td>
-                                        <td>{{ $item->l}}</td>
-                                        <td>{{ $item->gf}}</td>
-                                        <td>{{ $item->ga}}</td>
-                                        <td>{{ $item->gf - $item->ga}}</td>
-                                        <td>{{ $item->pts}}</td>
+                                @foreach ($standings as $key => $item)
+                                    @php
+                                        $rank = $key + 1;
+                                        $rowClass = '';
+
+                                        if ($rank == 1) {
+                                            $rowClass = 'table-success';
+                                        } elseif ($rank >= 10 && $rank <= 12 && in_array($item->division_id, [1, 3])) {
+                                            $rowClass = 'table-danger';
+                                        } elseif ($rank >= 2 && $rank <= 3 && $item->division_id == 3) {
+                                            $rowClass = 'table-info';
+                                        } elseif ($rank == 2 && in_array($item->division_id, [4, 5])) {
+                                            $rowClass = 'bg-yellow-100';
+                                        } elseif ($rank == 12 && in_array($item->division_id, [4, 5])) {
+                                            $rowClass = 'table-danger';
+                                        }
+                                    @endphp
+
+                                    <tr class="{{ $rowClass }}">
+                                        <td>{{ $rank }}</td>
+                                        <td>{{ $item->team->team_name }}</td>
+                                        <td>{{ $item->mp }}</td>
+                                        <td>{{ $item->w }}</td>
+                                        <td>{{ $item->d }}</td>
+                                        <td>{{ $item->l }}</td>
+                                        <td>{{ $item->gf }}</td>
+                                        <td>{{ $item->ga }}</td>
+                                        <td>{{ $item->gf - $item->ga }}</td>
+                                        <td>{{ $item->pts }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
