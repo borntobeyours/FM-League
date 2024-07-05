@@ -57,7 +57,7 @@
                                         <td>{{ $item->l}}</td>
                                         <td>{{ $item->gf}}</td>
                                         <td>{{ $item->ga}}</td>
-                                        <td>{{ $item->gd}}</td>
+                                        <td>{{ $item->gf - $item->ga}}</td>
                                         <td>{{ $item->pts}}</td>
                                     </tr>
                                 @endforeach

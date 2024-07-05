@@ -28,6 +28,8 @@ Route::middleware('auth')->prefix('configuration')->group(function () {
 
 Route::middleware('auth')->prefix('league')->group(function () {
     Route::get('/{division_id}/standings', [leagueController::class, 'standings'])->name('league.standing');
+    Route::get('/{division_id}/results', [leagueController::class, 'results'])->name('league.results');
+    Route::post('/{division_id}/results', [leagueController::class, 'saveResults']);
 });
 
 Route::middleware('auth')->group(function () {
