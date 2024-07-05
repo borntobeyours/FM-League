@@ -6,13 +6,13 @@
                     <div class="col-md-12">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="#">{{ $league->division_name }}</a></li>
+                            <li class="breadcrumb-item"><a href="#">{{ $division->division_name }}</a></li>
                             <li class="breadcrumb-item" aria-current="page">Standings</li>
                         </ul>
                     </div>
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h2 class="mb-0">{{ $league->division_name }} Standings</h2>
+                            <h2 class="mb-0">{{ $division->division_name }} Standings</h2>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                <h5>{{ $league->division_name }} Standings</h5>
+                                <h5>{{ $division->division_name }} Standings</h5>
                             </div>
                         </div>
                     </div>
@@ -47,18 +47,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($teams as $key=>$item)
+                                @foreach ($standings as $key=>$item)
                                     <tr class="table-success">
                                         <td>{{ $key+1 }}</td>
-                                        <td>{{ $item->team_name}}</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
+                                        <td>{{ $item->team->team_name}}</td>
+                                        <td>{{ $item->mp}}</td>
+                                        <td>{{ $item->w}}</td>
+                                        <td>{{ $item->d}}</td>
+                                        <td>{{ $item->l}}</td>
+                                        <td>{{ $item->gf}}</td>
+                                        <td>{{ $item->ga}}</td>
+                                        <td>{{ $item->gd}}</td>
+                                        <td>{{ $item->pts}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
