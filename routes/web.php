@@ -40,6 +40,7 @@ Route::middleware('auth')->prefix('league')->group(function () {
     Route::get('/{division_id}/statistics/goal-score', [leagueController::class, 'statisticsGoal'])->name('league.statistic.goal');
     Route::get('/{division_id}/statistics/assist', [leagueController::class, 'statisticsAssist'])->name('league.statistic.assist');
     Route::get('/{division_id}/statistics/yellow-card', [leagueController::class, 'statisticsYC'])->name('league.statistic.yc');
+    Route::get('/{division_id}/statistics/red-card', [leagueController::class, 'statisticsRC'])->name('league.statistic.rc');
 });
 
 Route::middleware('auth')->group(function () {

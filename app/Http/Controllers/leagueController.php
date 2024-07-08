@@ -253,4 +253,23 @@ class leagueController extends Controller
             'yellow' => $yellowStats
         ]);
     }
+
+    public function statisticsRC($division_id){
+        $start = ConfigStart::where('status', 1)->orderBy('id', 'DESC')->first();
+        $division = ConfigDivision::find($division_id);
+
+        $redStats = LeagueRed::select('team_id','player_id', DB::raw('count(*) as red_card'))
+            ->where('start_id', $start->id)
+            ->where('division_id', $division_id)
+            ->groupBy('team_id')
+            ->groupBy('player_id')
+            ->orderBy('red_card', 'desc')
+            ->with(['player','team'])
+            ->get();
+
+        return view('league.statistics.red', [
+            'division' => $division,
+            'red' => $redStats
+        ]);
+    }
 }
