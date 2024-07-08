@@ -78,7 +78,7 @@
                     </a>
                     <ul class="pc-submenu">
                         <li class="pc-item"><a class="pc-link" href="{{ route('league.statistic.goal', $division->id )}}">Goal Score</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#!">Assist</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ route('league.statistic.assist', $division->id )}}">Assist</a></li>
                         <li class="pc-item"><a class="pc-link" href="#!">Yellow Card</a></li>
                         <li class="pc-item"><a class="pc-link" href="#!">Red Card</a></li>
                     </ul>

@@ -215,4 +215,23 @@ class leagueController extends Controller
             'goals' => $goalStats
         ]);
     }
+
+    public function statisticsAssist($division_id){
+        $start = ConfigStart::where('status', 1)->orderBy('id', 'DESC')->first();
+        $division = ConfigDivision::find($division_id);
+
+        $assistStats = LeagueAssist::select('team_id','player_id', DB::raw('count(*) as total_assist'))
+            ->where('start_id', $start->id)
+            ->where('division_id', $division_id)
+            ->groupBy('team_id')
+            ->groupBy('player_id')
+            ->orderBy('total_assist', 'desc')
+            ->with(['player','team'])
+            ->get();
+
+        return view('league.statistics.assist', [
+            'division' => $division,
+            'assists' => $assistStats
+        ]);
+    }
 }
