@@ -14,6 +14,7 @@ use App\Models\LeagueYellow;
 use App\Models\Team;
 use App\Models\Player;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class leagueController extends Controller
@@ -194,5 +195,24 @@ class leagueController extends Controller
                 ]);
             }
         }
+    }
+
+    public function statisticsGoal($division_id){
+        $start = ConfigStart::where('status', 1)->orderBy('id', 'DESC')->first();
+        $division = ConfigDivision::find($division_id);
+
+        $goalStats = LeagueGoals::select('team_id','player_id', DB::raw('count(*) as total_goals'))
+            ->where('start_id', $start->id)
+            ->where('division_id', $division_id)
+            ->groupBy('team_id')
+            ->groupBy('player_id')
+            ->orderBy('total_goals', 'desc')
+            ->with(['player','team'])
+            ->get();
+
+        return view('league.statistics.goal', [
+            'division' => $division,
+            'goals' => $goalStats
+        ]);
     }
 }

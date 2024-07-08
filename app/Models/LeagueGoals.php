@@ -16,4 +16,12 @@ class LeagueGoals extends Model
         'team_id',
         'player_id'
     ];
+
+    public function team() {
+        return $this->belongsTo(Team::class);
+    }
+
+    public function player() {
+        return $this->belongsTo(Player::class);
+    }
 }

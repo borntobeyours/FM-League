@@ -77,7 +77,7 @@
                         Statistics<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
                     <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="#!">Goal Score</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ route('league.statistic.goal', $division->id )}}">Goal Score</a></li>
                         <li class="pc-item"><a class="pc-link" href="#!">Assist</a></li>
                         <li class="pc-item"><a class="pc-link" href="#!">Yellow Card</a></li>
                         <li class="pc-item"><a class="pc-link" href="#!">Red Card</a></li>

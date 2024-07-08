@@ -37,6 +37,7 @@ Route::middleware('auth')->prefix('league')->group(function () {
     Route::get('/{division_id}/standings', [leagueController::class, 'standings'])->name('league.standing');
     Route::get('/{division_id}/results', [leagueController::class, 'results'])->name('league.results');
     Route::post('/{division_id}/results', [leagueController::class, 'saveResults']);
+    Route::get('/{division_id}/statistics/goal-score', [leagueController::class, 'statisticsGoal'])->name('league.statistic.goal');
 });
 
 Route::middleware('auth')->group(function () {
