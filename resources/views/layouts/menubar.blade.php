@@ -47,7 +47,7 @@
         </a>
     </li>
     <li class="pc-item">
-        <a href="#" class="pc-link">
+        <a href="{{ route('transfer') }}" class="pc-link">
             <span class="pc-micon">
                 <svg class="pc-icon">
                     <use xlink:href="#custom-user-add"></use>
