@@ -25,7 +25,7 @@ class transferController extends Controller
         //TODO : Transfer price included
         $players    = Player::orderBy('name','ASC')->get();
         $teams      = Team::orderBy('team_name','ASC')->get();
-        $transfer   = PlayerTransfer::orderBy('id','DESC')->get();
+        $transfer   = PlayerTransfer::orderBy('transfer_date','DESC')->orderBy('id','DESC')->get();
         return view('transfer.index', [
             'players' => $players,
             'teams' => $teams,
@@ -49,7 +49,8 @@ class transferController extends Controller
 
         // If the player is being transferred to a special team (e.g., team ID 999999), delete the player
         if ($this->request->to_team_id == 999999) {
-            $player->delete();
+            $player->team_id = 999999;
+            $player->save();
         } else {
             // Otherwise, update the player's team ID and save
             $player->team_id = $this->request->to_team_id;
