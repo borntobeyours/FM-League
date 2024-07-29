@@ -41,8 +41,10 @@ class leagueController extends Controller
         $standings = League::where('division_id', $division_id)
             ->where('league_id', $league->id)
             ->where('start_id', $start->id)
+            ->selectRaw('*, (gf - ga) as gd')
             ->orderBy('pts', 'DESC')
-            ->orderBy('gd', 'DESC')
+            ->orderByRaw('gd DESC')
+            ->orderBy('gf', 'DESC') // Optional: to sort by goals for if needed
             ->get();
 
         return view('league.standings', [
@@ -58,7 +60,7 @@ class leagueController extends Controller
         $division = ConfigDivision::find($division_id);
         $activeLeague = ConfigLeague::where('status', 1)->orderBy('id', 'DESC')->first();
         $league = League::with('team')->where('division_id', $division_id)->where('league_id', $activeLeague->id)->get();
-        $results = LeagueMatch::where('start_id', $start->id)->where('division_id', $division_id)->orderBy('match_date', 'DESC')->get();
+        $results = LeagueMatch::where('start_id', $start->id)->where('division_id', $division_id)->orderBy('id', 'DESC')->get();
 
         $players = Player::all();
 
