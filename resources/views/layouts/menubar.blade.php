@@ -95,16 +95,6 @@
         <a href="#" class="pc-link">
             <span class="pc-micon">
                 <svg class="pc-icon">
-                    <use xlink:href="#custom-layer"></use>
-                </svg>
-            </span>
-            <span class="pc-mtext">Classement</span>
-        </a>
-    </li>
-    <li class="pc-item">
-        <a href="#" class="pc-link">
-            <span class="pc-micon">
-                <svg class="pc-icon">
                     <use xlink:href="#custom-presentation-chart"></use>
                 </svg>
             </span>
@@ -112,7 +102,7 @@
         </a>
     </li>
     <li class="pc-item">
-        <a href="#" class="pc-link">
+        <a href="{{ route('cup.results') }}" class="pc-link">
             <span class="pc-micon">
                 <svg class="pc-icon">
                     <use xlink:href="#custom-video-play"></use>
