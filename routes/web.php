@@ -48,10 +48,10 @@ Route::middleware('auth')->prefix('league')->group(function () {
 Route::middleware('auth')->prefix('cup')->group(function () {
     Route::get('results', [cupController::class, 'results'])->name('cup.results');
     Route::post('results', [cupController::class, 'saveResults']);
-    // Route::get('/{division_id}/statistics/goal-score', [leagueController::class, 'statisticsGoal'])->name('league.statistic.goal');
-    // Route::get('/{division_id}/statistics/assist', [leagueController::class, 'statisticsAssist'])->name('league.statistic.assist');
-    // Route::get('/{division_id}/statistics/yellow-card', [leagueController::class, 'statisticsYC'])->name('league.statistic.yc');
-    // Route::get('/{division_id}/statistics/red-card', [leagueController::class, 'statisticsRC'])->name('league.statistic.rc');
+    Route::get('statistics/goal-score', [cupController::class, 'statisticsGoal'])->name('cup.statistic.goal');
+    Route::get('statistics/assist', [cupController::class, 'statisticsAssist'])->name('cup.statistic.assist');
+    Route::get('statistics/yellow-card', [cupController::class, 'statisticsYC'])->name('cup.statistic.yc');
+    Route::get('statistics/red-card', [cupController::class, 'statisticsRC'])->name('cup.statistic.rc');
 });
 
 Route::middleware('auth')->group(function () {

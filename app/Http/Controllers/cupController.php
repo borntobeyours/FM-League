@@ -11,6 +11,7 @@ use App\Models\CupRed;
 use App\Models\CupYellow;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class cupController extends Controller
@@ -138,5 +139,69 @@ class cupController extends Controller
                 ]);
             }
         }
+    }
+
+    public function statisticsGoal(){
+        $start = ConfigStart::where('status', 1)->orderBy('id', 'DESC')->first();
+
+        $goalStats = CupGoals::select('team_id','player_id', DB::raw('count(*) as total_goals'))
+            ->where('start_id', $start->id)
+            ->groupBy('team_id')
+            ->groupBy('player_id')
+            ->orderBy('total_goals', 'desc')
+            ->with(['player','team'])
+            ->get();
+
+        return view('cup.statistics.goal', [
+            'goals' => $goalStats
+        ]);
+    }
+
+    public function statisticsAssist(){
+        $start = ConfigStart::where('status', 1)->orderBy('id', 'DESC')->first();
+
+        $assistStats = CupAssist::select('team_id','player_id', DB::raw('count(*) as total_assist'))
+            ->where('start_id', $start->id)
+            ->groupBy('team_id')
+            ->groupBy('player_id')
+            ->orderBy('total_assist', 'desc')
+            ->with(['player','team'])
+            ->get();
+
+        return view('cup.statistics.assist', [
+            'assists' => $assistStats
+        ]);
+    }
+
+    public function statisticsYC(){
+        $start = ConfigStart::where('status', 1)->orderBy('id', 'DESC')->first();
+
+        $yellowStats = CupYellow::select('team_id','player_id', DB::raw('count(*) as yellow_card'))
+            ->where('start_id', $start->id)
+            ->groupBy('team_id')
+            ->groupBy('player_id')
+            ->orderBy('yellow_card', 'desc')
+            ->with(['player','team'])
+            ->get();
+
+        return view('cup.statistics.yellow', [
+            'yellow' => $yellowStats
+        ]);
+    }
+
+    public function statisticsRC(){
+        $start = ConfigStart::where('status', 1)->orderBy('id', 'DESC')->first();
+
+        $redStats = CupRed::select('team_id','player_id', DB::raw('count(*) as red_card'))
+            ->where('start_id', $start->id)
+            ->groupBy('team_id')
+            ->groupBy('player_id')
+            ->orderBy('red_card', 'desc')
+            ->with(['player','team'])
+            ->get();
+
+        return view('cup.statistics.red', [
+            'red' => $redStats
+        ]);
     }
 }

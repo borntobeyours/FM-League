@@ -91,15 +91,21 @@
     <li class="pc-item pc-caption">
         <label>Cup</label>
     </li>
-    <li class="pc-item">
-        <a href="#" class="pc-link">
+    <li class="pc-item pc-hasmenu">
+        <a href="#!" class="pc-link">
             <span class="pc-micon">
                 <svg class="pc-icon">
                     <use xlink:href="#custom-presentation-chart"></use>
                 </svg>
             </span>
-            <span class="pc-mtext">Statistics</span>
+            Statistics<span class="pc-arrow"><i data-feather="chevron-right"></i></span>
         </a>
+        <ul class="pc-submenu">
+            <li class="pc-item"><a class="pc-link" href="{{ route('cup.statistic.goal', $division->id )}}">Goal Score</a></li>
+            <li class="pc-item"><a class="pc-link" href="{{ route('cup.statistic.assist', $division->id )}}">Assist</a></li>
+            <li class="pc-item"><a class="pc-link" href="{{ route('cup.statistic.yc', $division->id) }}">Yellow Card</a></li>
+            <li class="pc-item"><a class="pc-link" href="{{ route('cup.statistic.rc', $division->id) }}">Red Card</a></li>
+        </ul>
     </li>
     <li class="pc-item">
         <a href="{{ route('cup.results') }}" class="pc-link">
